@@ -1,3 +1,4 @@
+import os
 import requests
 import argparse
 from ai_summarizer import summarize_text
@@ -28,6 +29,15 @@ def save_to_file(title, text, file_extension="md"):
         file.write(text)
     print(f"File saved as: {filename}")
 
+def save_to_file(title, text, folder_path, file_extension="md"):
+    if not os.path.exists(folder_path):
+        os.makedirs(folder_path)
+    filename = os.path.join(folder_path, f"{title}.{file_extension}")
+    with open(filename, "w", encoding="utf-8") as file:
+        file.write(text)
+    print(f"File saved as: {filename}")
+
+
 def main():
     parser = argparse.ArgumentParser(description="Summarize a Wikipedia page with a given context")
     parser.add_argument("title", nargs="?", help="The title of the Wikipedia page")
@@ -46,7 +56,7 @@ def main():
 
     print(summary)
 
-    save_to_file(f"{wikipedia_title}_summary", summary)
+    save_to_file(f"{wikipedia_title}_summary", summary, "outputs", "txt")
     quit()
 
 if __name__ == "__main__":

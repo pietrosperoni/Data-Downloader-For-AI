@@ -130,4 +130,4 @@ dmypy.json
 
 *_secret.py
 
-output/
+outputs/
